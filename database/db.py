@@ -47,6 +47,14 @@ def init_db():
         ''')
         db.commit()
 
+def create_user(name, email, password):
+    with get_db() as db:
+        db.execute(
+            'INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)',
+            (name, email, generate_password_hash(password))
+        )
+        db.commit()
+
 def seed_db():
     """
     Seeds the database with initial demo data if it's empty.
