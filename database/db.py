@@ -47,6 +47,12 @@ def init_db():
         ''')
         db.commit()
 
+def get_user_by_email(email):
+    with get_db() as db:
+        return db.execute(
+            'SELECT * FROM users WHERE email = ?', (email,)
+        ).fetchone()
+
 def create_user(name, email, password):
     with get_db() as db:
         db.execute(
